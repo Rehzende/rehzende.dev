@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Markup Language on Marcos Rezende</title>
+    <link>https://example.com/tags/markup-language/</link>
+    <description>Recent content in Markup Language on Marcos Rezende</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>pt-br</language>
+    <lastBuildDate>Sat, 25 Sep 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://example.com/tags/markup-language/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>1 - Drops: Pipelines — YML</title>
+      <link>https://example.com/p/1-drops-pipelines-yml/</link>
+      <pubDate>Sat, 25 Sep 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/1-drops-pipelines-yml/</guid>
+      <description>Para continuar nossa jornada de Azure Pipelines, precisamos entender o mínimo de YML. A maioria das ferramentas de pipelines utiliza o YML como padrão de serialização (codificação de dados). Por isso, entender o mínimo já nos ajuda evitar alguns erros no momento de executar qualquer pipeline.
+Vou abordar de maneira simples o YML para facilitar o entendimento de quem está começando. Podemos salvar o arquivo em duas extensões: .yml ou .</description>
+    </item>
+    
+  </channel>
+</rss>

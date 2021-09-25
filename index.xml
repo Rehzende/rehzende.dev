@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Marcos Rezende</title>
+        <link>https://example.com/</link>
+        <description>Recent content on Marcos Rezende</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>pt-br</language>
+        <lastBuildDate>Sat, 25 Sep 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://example.com/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>1 - Drops: Pipelines — YML</title>
+        <link>https://example.com/p/1-drops-pipelines-yml/</link>
+        <pubDate>Sat, 25 Sep 2021 00:00:00 +0000</pubDate>
+        
+        <guid>https://example.com/p/1-drops-pipelines-yml/</guid>
+        <description>&lt;img src="https://example.com/p/1-drops-pipelines-yml/yml.png" alt="Featured image of post 1 - Drops: Pipelines — YML" /&gt;&lt;p&gt;Para continuar nossa jornada de Azure Pipelines, precisamos entender o mínimo de YML. A maioria das ferramentas de pipelines utiliza o YML como padrão de serialização (codificação de dados). Por isso, entender o mínimo já nos ajuda evitar alguns erros no momento de executar qualquer pipeline.&lt;/p&gt;
+&lt;p&gt;Vou abordar de maneira simples o YML para facilitar o entendimento de quem está começando. Podemos salvar o arquivo em duas extensões: .yml ou .yaml as duas formas são reconhecidas; a boa prática é sempre usar em lowcase.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Dica:&lt;/strong&gt; espaço em YML é muito importante, por isso sempre use um PAR de espaços e não Tab; quando precisar comentar use o #(hash).&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;# seu comentário
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Para iniciar um documento temos uma opção que não é obrigatória, porém útil quando estamos trabalhando com mais de uma definição por arquivo. Iniciamos o arquivo com 3 hifens e finalizamos com 3 pontos.`&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;---
+#só um comentário
+...
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Mapeamento permite listar chaves com valores. Isso é útil nos casos em que você está atribuindo um nome ou uma propriedade a um elemento específico.&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;cerveja: tecnologia
+copo: campo
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Às vezes precisamos trabalhar com listas e dicionários. Abaixo deixo dois exemplos do que eles são:
+Listas são coleções de itens que você define usando hífen:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;---
+---  
+-  apenas comece  
+-  entenda os conceitos  
+-  estude no seu tempo---  
+ferramentas:  
+ - docker  
+ - kubernetes  
+ - terraform  
+ - ansible
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Dicionários são coleções de mapeamentos de chave: valor. No exemplo abaixo, em que eu estou mapeando os dados de um pagador, tenho diversos dados, como: ‘pessoa’, ‘família’ e ‘endereço’. Porém, dentro de ‘endereço’ possuo outros dados. Isso tudo é um dicionário.&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;pagador: &amp;amp;id001
+  pessoa: Chris
+  familia: Dumars
+  endereco:
+    rua: |
+          458 Walkman Dr.
+          Suite #292
+    cidade: Royal Oak
+    estado: MI
+    cep: 48046
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Existem casos que repetimos os mesmos dados em diversas linhas de nosso código. Para evitar que o tamanho do documento fique muito grande, podemos repetir esse código trabalhando com âncoras. Basta usar ‘E’ Comercial &amp;amp;+String para criar uma âncora e usar asterisco *+String para criar a referência da âncora. Veja abaixo:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;copodecerveja: &amp;amp;tecnologia
+  - dados_disponiveis: 2.5M
+  - usuarios_conectados: 39k
+  - linhas_de_codigos: &amp;quot;+10.216.248&amp;quot;
+  - squads: &amp;quot;+50&amp;quot;
+  - produtos:&amp;quot;+70&amp;quot;
+mesadobar: *tecnologia # Aqui estamos dizendo que a mesadobar tem os mesmos dados do copodecerveja
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Podemos também usar multilinhas para atribuir nossos valores, usando: |(pipe) um bloco literal que irá inserir quebras de linhas em seu texto. E &amp;gt;(maior) bloco dobrado que irá substituir todas as quebras de linhas por espaços simples.&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;---
+literal: |
+       do código ao campo
+       do campo ao código
+---
+dobrado: &amp;gt;
+       do código ao campo
+       do campo à mesa do bar
+...
+
+# Se convertermos esses dois exemplos em JSON, podemos ver melhor o que quis dizer.
+
+{
+
+&amp;quot;literal&amp;quot;: &amp;quot;do código ao campo\ndo campo ao código\n&amp;quot;,
+
+&amp;quot;dobrado&amp;quot;: &amp;quot;do código ao campo do campo à mesa do bar\n&amp;quot;
+
+}
+
+Vou deixar um exemplo de uma ordem de venda que contém dados da operação.
+---
+&lt;/code&gt;&lt;/pre&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;nota_fiscal: 34843
+data: 2001-01-23
+pagador: &amp;amp;id001
+  pessoa: Chris
+  familia: Dumars
+  endereco:
+    rua: |
+        458 Walkman Dr.
+        Suite #292
+    cidade: Royal Oak
+    estado: MI
+    cep: 48046
+envio: *id001
+produto:
+- id_produto: BL394D
+  quantidade: 4
+  descricao : Basketball
+  preco: 450.00
+- id_produto: BL4438H
+  quantidade : 1
+  descricao: Super Hoop
+  preco: 2392.00
+taxa : 251.42
+total: 4443.52
+...
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;No dia-dia, o yml salva nossas vidas por ser simples e poderoso ao mesmo tempo. Quando se trata de pipelines, o yml ajuda a reduzir a curva de aprendizagem de qualquer ferramenta por ser fácil de ler e entender.&lt;/p&gt;
+&lt;p&gt;Espero que tenha te ajudado, nos vemos em breve na sequência da nossa jornada em Azure Pipelines. Valeu!&lt;/p&gt;
+
+</description>
+        </item>
+        <item>
+        <title>Azure Pipelines</title>
+        <link>https://example.com/p/azure-pipelines/</link>
+        <pubDate>Sat, 09 Mar 2019 00:00:00 +0000</pubDate>
+        
+        <guid>https://example.com/p/azure-pipelines/</guid>
+        <description>&lt;img src="https://example.com/p/azure-pipelines/pipelines.png" alt="Featured image of post Azure Pipelines" /&gt;&lt;p&gt;Lorem est tota propiore conpellat pectoribus de pectora summo.&lt;/p&gt;
+&lt;p&gt;Redit teque digerit hominumque toris verebor lumina non cervice subde tollit usus habet Arctonque, furores quas nec ferunt. Quoque montibus nunc caluere tempus inhospita parcite confusaque translucet patri vestro qui optatis lumine cognoscere flos nubis! Fronde ipsamque patulos Dryopen deorum.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Exierant elisi ambit vivere dedere&lt;/li&gt;
+&lt;li&gt;Duce pollice&lt;/li&gt;
+&lt;li&gt;Eris modo&lt;/li&gt;
+&lt;li&gt;Spargitque ferrea quos palude&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Rursus nulli murmur; hastile inridet ut ab gravi sententia! Nomine potitus silentia flumen, sustinet placuit petis in dilapsa erat sunt. Atria tractus malis.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Comas hunc haec pietate fetum procerum dixit&lt;/li&gt;
+&lt;li&gt;Post torum vates letum Tiresia&lt;/li&gt;
+&lt;li&gt;Flumen querellas&lt;/li&gt;
+&lt;li&gt;Arcanaque montibus omnes&lt;/li&gt;
+&lt;li&gt;Quidem et&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h1 id=&#34;vagus-elidunt&#34;&gt;Vagus elidunt&lt;/h1&gt;
+&lt;p&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://en.wikipedia.org/wiki/Canons_of_page_construction#Van_de_Graaf_canon&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;The Van de Graaf Canon&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;mane-refeci-capiebant-unda-mulcebat&#34;&gt;Mane refeci capiebant unda mulcebat&lt;/h2&gt;
+&lt;p&gt;Victa caducifer, malo vulnere contra dicere aurato, ludit regale, voca! Retorsit colit est profanae esse virescere furit nec; iaculi matertera et visa est, viribus. Divesque creatis, tecta novat collumque vulnus est, parvas. &lt;strong&gt;Faces illo pepulere&lt;/strong&gt; tempus adest. Tendit flamma, ab opes virum sustinet, sidus sequendo urbis.&lt;/p&gt;
+&lt;p&gt;Iubar proles corpore raptos vero auctor imperium; sed et huic: manus caeli Lelegas tu lux. Verbis obstitit intus oblectamina fixis linguisque ausus sperare Echionides cornuaque tenent clausit possit. Omnia putatur. Praeteritae refert ausus; ferebant e primus lora nutat, vici quae mea ipse. Et iter nil spectatae vulnus haerentia iuste et exercebat, sui et.&lt;/p&gt;
+&lt;p&gt;Eurytus Hector, materna ipsumque ut Politen, nec, nate, ignari, vernum cohaesit sequitur. Vel &lt;strong&gt;mitis temploque&lt;/strong&gt; vocatus, inque alis, &lt;em&gt;oculos nomen&lt;/em&gt; non silvis corpore coniunx ne displicet illa. Crescunt non unus, vidit visa quantum inmiti flumina mortis facto sic: undique a alios vincula sunt iactata abdita! Suspenderat ego fuit tendit: luna, ante urbem Propoetides &lt;strong&gt;parte&lt;/strong&gt;.&lt;/p&gt;</description>
+        </item>
+        
+    </channel>
+</rss>
