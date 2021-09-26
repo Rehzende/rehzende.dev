@@ -83,7 +83,7 @@ taxa : 251.42
 total: 4443.52
 ...
 &lt;/code>&lt;/pre>&lt;p>No dia-dia, o yml salva nossas vidas por ser simples e poderoso ao mesmo tempo. Quando se trata de pipelines, o yml ajuda a reduzir a curva de aprendizagem de qualquer ferramenta por ser fácil de ler e entender.&lt;/p>
-&lt;p>Espero que tenha te ajudado, nos vemos em breve na sequência da nossa jornada em Azure Pipelines. Valeu!&lt;/p></description></item><item><title>2 — Drops: Azure Pipelines — Estrutura</title><link>https://rehzende.dev/p/2-drops-azure-pipelines-estrutura/</link><pubDate>Sat, 25 Sep 2021 00:00:00 +0000</pubDate><guid>https://rehzende.dev/p/2-drops-azure-pipelines-estrutura/</guid><description>&lt;img src="https://rehzende.dev/p/2-drops-azure-pipelines-estrutura/pipelines.png" alt="Featured image of post 2 — Drops: Azure Pipelines — Estrutura" />&lt;p>Posso dizer, sem dúvidas, que o mais assustador para alguém que está começando no universo de Devops e se vê diante de uma pipeline complexa, são os termos STAGE, STEP e JOBS. Até que consiga entender qual é a hierarquia deles, a pessoa pode ficar bem perdida.
+&lt;p>Espero que tenha te ajudado, nos vemos em breve na sequência da nossa jornada em Azure Pipelines. Valeu!&lt;/p></description></item><item><title>2 - Drops: Azure Pipelines - Estrutura</title><link>https://rehzende.dev/p/2-drops-azure-pipelines-estrutura/</link><pubDate>Sat, 25 Sep 2021 00:00:00 +0000</pubDate><guid>https://rehzende.dev/p/2-drops-azure-pipelines-estrutura/</guid><description>&lt;img src="https://rehzende.dev/p/2-drops-azure-pipelines-estrutura/pipelines.png" alt="Featured image of post 2 - Drops: Azure Pipelines - Estrutura" />&lt;p>Posso dizer, sem dúvidas, que o mais assustador para alguém que está começando no universo de Devops e se vê diante de uma pipeline complexa, são os termos STAGE, STEP e JOBS. Até que consiga entender qual é a hierarquia deles, a pessoa pode ficar bem perdida.
 Para ficar mais fácil de entender, a documentação da Microsoft traz vários exemplos e um deles vou reproduzir abaixo.&lt;/p>
 &lt;pre>&lt;code>hierarquia-pipeline.yml
 * STAGE A
@@ -115,4 +115,28 @@ jobs:
 - job: Deploy
 steps:
 - script: echo Deploying the code!
-&lt;/code>&lt;/pre></description></item></channel></rss>
+&lt;/code>&lt;/pre>
+&lt;ul>
+&lt;li>STAGE é a coleção principal que contém todos os Jobs que devem ser executados. Por padrão, os stages nas pipelines são executados na sequência se o estágio anterior terminar com sucesso; caso contrário, a pipeline falhará ou os stages podem ser condicionadas a rodarem com dependência em um determinado estágio usando o dependeOn.&lt;/li>
+&lt;li>JOB é uma coleção de etapas que, em uma pipeline, podemos usar para executar diferentes tipos de testes, builds ou o que for preciso em máquinas ou versões de sistemas operacionais diferentes. Isso porque, pra cada JOB você pode definir um AGENT POOL. Com o Agent Pool você pode escolher o sistema operacional em que a pipeline irá rodar determinado Job, podendo ser em Vms ou até mesmo Containers.&lt;/li>
+&lt;li>STEPS são as sequências de operações dentro de um JOB, e é aqui que quase tudo funciona, pois podemos adicionar TASK, BASH, POWERSHELL, SCRIPT e muito mais.&lt;/li>
+&lt;/ul>
+&lt;p>E não é necessário seguir a estrutura — posso usar somente o job ou o stage em uma pipeline.&lt;/p>
+&lt;p>Vamos brincar, aí explico outros detalhes da pipeline no exemplo que vou montar. Para isso, vou criar um projeto do zero.
+Gosto do repositório de exemplos da Microsoft, pois contém exemplos de aplicações de quase todas as linguagens. Vou criar um FORK dela em meu Azure repo. &lt;a href="https://github.com/microsoft/devops-project-samples">https://github.com/microsoft/devops-project-samples&lt;/a>.&lt;/p>
+&lt;p>&lt;figure
+class="gallery-image"
+style="
+flex-grow: 183;
+flex-basis: 439px"
+>
+&lt;a href="https://rehzende.dev/p/2-drops-azure-pipelines-estrutura/new-repo.gif" data-size="1920x1048">
+&lt;img src="https://rehzende.dev/p/2-drops-azure-pipelines-estrutura/new-repo.gif"
+width="1920"
+height="1048"
+srcset="https://rehzende.dev/p/2-drops-azure-pipelines-estrutura/new-repo_hu7626da8a222eeab23586e1c7eaf9254c_5082806_480x0_resize_box.gif 480w, https://rehzende.dev/p/2-drops-azure-pipelines-estrutura/new-repo_hu7626da8a222eeab23586e1c7eaf9254c_5082806_1024x0_resize_box.gif 1024w"
+loading="lazy"
+alt="Criando um Repo">
+&lt;/a>
+&lt;figcaption>Criando um Repo&lt;/figcaption>
+&lt;/figure>&lt;/p></description></item></channel></rss>
