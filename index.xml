@@ -83,27 +83,36 @@ taxa : 251.42
 total: 4443.52
 ...
 &lt;/code>&lt;/pre>&lt;p>No dia-dia, o yml salva nossas vidas por ser simples e poderoso ao mesmo tempo. Quando se trata de pipelines, o yml ajuda a reduzir a curva de aprendizagem de qualquer ferramenta por ser fácil de ler e entender.&lt;/p>
-&lt;p>Espero que tenha te ajudado, nos vemos em breve na sequência da nossa jornada em Azure Pipelines. Valeu!&lt;/p></description></item><item><title>Azure Pipelines</title><link>https://rehzende.dev/p/azure-pipelines/</link><pubDate>Sat, 09 Mar 2019 00:00:00 +0000</pubDate><guid>https://rehzende.dev/p/azure-pipelines/</guid><description>&lt;img src="https://rehzende.dev/p/azure-pipelines/pipelines.png" alt="Featured image of post Azure Pipelines" />&lt;p>Lorem est tota propiore conpellat pectoribus de pectora summo.&lt;/p>
-&lt;p>Redit teque digerit hominumque toris verebor lumina non cervice subde tollit usus habet Arctonque, furores quas nec ferunt. Quoque montibus nunc caluere tempus inhospita parcite confusaque translucet patri vestro qui optatis lumine cognoscere flos nubis! Fronde ipsamque patulos Dryopen deorum.&lt;/p>
-&lt;ol>
-&lt;li>Exierant elisi ambit vivere dedere&lt;/li>
-&lt;li>Duce pollice&lt;/li>
-&lt;li>Eris modo&lt;/li>
-&lt;li>Spargitque ferrea quos palude&lt;/li>
-&lt;/ol>
-&lt;p>Rursus nulli murmur; hastile inridet ut ab gravi sententia! Nomine potitus silentia flumen, sustinet placuit petis in dilapsa erat sunt. Atria tractus malis.&lt;/p>
-&lt;ol>
-&lt;li>Comas hunc haec pietate fetum procerum dixit&lt;/li>
-&lt;li>Post torum vates letum Tiresia&lt;/li>
-&lt;li>Flumen querellas&lt;/li>
-&lt;li>Arcanaque montibus omnes&lt;/li>
-&lt;li>Quidem et&lt;/li>
-&lt;/ol>
-&lt;h1 id="vagus-elidunt">Vagus elidunt&lt;/h1>
-&lt;p>&lt;!-- raw HTML omitted -->&lt;!-- raw HTML omitted -->&lt;!-- raw HTML omitted -->&lt;!-- raw HTML omitted -->&lt;!-- raw HTML omitted -->&lt;!-- raw HTML omitted -->&lt;!-- raw HTML omitted -->&lt;!-- raw HTML omitted -->&lt;!-- raw HTML omitted -->&lt;!-- raw HTML omitted -->&lt;!-- raw HTML omitted -->&lt;!-- raw HTML omitted -->&lt;!-- raw HTML omitted -->&lt;!-- raw HTML omitted -->&lt;/p>
-&lt;p>&lt;a class="link" href="https://en.wikipedia.org/wiki/Canons_of_page_construction#Van_de_Graaf_canon" target="_blank" rel="noopener"
->The Van de Graaf Canon&lt;/a>&lt;/p>
-&lt;h2 id="mane-refeci-capiebant-unda-mulcebat">Mane refeci capiebant unda mulcebat&lt;/h2>
-&lt;p>Victa caducifer, malo vulnere contra dicere aurato, ludit regale, voca! Retorsit colit est profanae esse virescere furit nec; iaculi matertera et visa est, viribus. Divesque creatis, tecta novat collumque vulnus est, parvas. &lt;strong>Faces illo pepulere&lt;/strong> tempus adest. Tendit flamma, ab opes virum sustinet, sidus sequendo urbis.&lt;/p>
-&lt;p>Iubar proles corpore raptos vero auctor imperium; sed et huic: manus caeli Lelegas tu lux. Verbis obstitit intus oblectamina fixis linguisque ausus sperare Echionides cornuaque tenent clausit possit. Omnia putatur. Praeteritae refert ausus; ferebant e primus lora nutat, vici quae mea ipse. Et iter nil spectatae vulnus haerentia iuste et exercebat, sui et.&lt;/p>
-&lt;p>Eurytus Hector, materna ipsumque ut Politen, nec, nate, ignari, vernum cohaesit sequitur. Vel &lt;strong>mitis temploque&lt;/strong> vocatus, inque alis, &lt;em>oculos nomen&lt;/em> non silvis corpore coniunx ne displicet illa. Crescunt non unus, vidit visa quantum inmiti flumina mortis facto sic: undique a alios vincula sunt iactata abdita! Suspenderat ego fuit tendit: luna, ante urbem Propoetides &lt;strong>parte&lt;/strong>.&lt;/p></description></item></channel></rss>
+&lt;p>Espero que tenha te ajudado, nos vemos em breve na sequência da nossa jornada em Azure Pipelines. Valeu!&lt;/p></description></item><item><title>2 — Drops: Azure Pipelines — Estrutura</title><link>https://rehzende.dev/p/2-drops-azure-pipelines-estrutura/</link><pubDate>Sat, 25 Sep 2021 00:00:00 +0000</pubDate><guid>https://rehzende.dev/p/2-drops-azure-pipelines-estrutura/</guid><description>&lt;img src="https://rehzende.dev/p/2-drops-azure-pipelines-estrutura/pipelines.png" alt="Featured image of post 2 — Drops: Azure Pipelines — Estrutura" />&lt;p>Posso dizer, sem dúvidas, que o mais assustador para alguém que está começando no universo de Devops e se vê diante de uma pipeline complexa, são os termos STAGE, STEP e JOBS. Até que consiga entender qual é a hierarquia deles, a pessoa pode ficar bem perdida.
+Para ficar mais fácil de entender, a documentação da Microsoft traz vários exemplos e um deles vou reproduzir abaixo.&lt;/p>
+&lt;pre>&lt;code>hierarquia-pipeline.yml
+* STAGE A
+* JOB 1
+* STEP 1.1
+* STEP 1.2
+* JOB 2
+* STEP 2.1
+* STEP 2.2
+* STAGE B
+* ...
+exemplo.pipeline.yml
+stages:
+- stage: Build
+jobs:
+- job: BuildJob
+steps:
+- script: echo Building!
+- stage: Test
+jobs:
+- job: TestOnWindows
+steps:
+- script: echo Testing on Windows!
+- job: TestOnLinux
+steps:
+- script: echo Testing on Linux!
+- stage: Deploy
+jobs:
+- job: Deploy
+steps:
+- script: echo Deploying the code!
+&lt;/code>&lt;/pre></description></item></channel></rss>
