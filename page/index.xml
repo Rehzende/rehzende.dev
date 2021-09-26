@@ -1,43 +1,5 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Pages on Marcos Rezende</title>
-    <link>https://example.com/page/</link>
-    <description>Recent content in Pages on Marcos Rezende</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>pt-br</language>
-    <lastBuildDate>Sat, 25 Sep 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://example.com/page/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>About Me</title>
-      <link>https://example.com/about-me/</link>
-      <pubDate>Sat, 25 Sep 2021 00:00:00 +0000</pubDate>
-      
-      <guid>https://example.com/about-me/</guid>
-      <description>  🔭 I’m currently working on AmbevTech
-  🌱 I’m currently learning Terraform, Ansible, Observability
-  🤝 I’m collaborating on Mentoria IAC and Pretux
-  📝 I regularly write articles on https://rehzende.dev/
-  📫 How to reach me rehzende@hotmail.com
-  </description>
-    </item>
-    
-    <item>
-      <title>Archives</title>
-      <link>https://example.com/archives/</link>
-      <pubDate>Tue, 28 May 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://example.com/archives/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Search</title>
-      <link>https://example.com/search/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://example.com/search/</guid>
-      <description></description>
-    </item>
-    
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Pages on Marcos Rezende</title><link>https://rehzende.dev/page/</link><description>Recent content in Pages on Marcos Rezende</description><generator>Hugo -- gohugo.io</generator><language>pt-br</language><lastBuildDate>Sat, 25 Sep 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://rehzende.dev/page/index.xml" rel="self" type="application/rss+xml"/><item><title>About Me</title><link>https://rehzende.dev/about-me/</link><pubDate>Sat, 25 Sep 2021 00:00:00 +0000</pubDate><guid>https://rehzende.dev/about-me/</guid><description> 🔭 I’m currently working on AmbevTech
+🌱 I’m currently learning Terraform, Ansible, Observability
+🤝 I’m collaborating on Mentoria IAC and Pretux
+📝 I regularly write articles on https://rehzende.dev/
+📫 How to reach me rehzende@hotmail.com</description></item><item><title>Archives</title><link>https://rehzende.dev/archives/</link><pubDate>Tue, 28 May 2019 00:00:00 +0000</pubDate><guid>https://rehzende.dev/archives/</guid><description/></item><item><title>Search</title><link>https://rehzende.dev/search/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://rehzende.dev/search/</guid><description/></item></channel></rss>
