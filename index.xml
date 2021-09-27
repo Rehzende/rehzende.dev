@@ -1,88 +1,88 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Marcos Rezende</title><link>https://rehzende.dev/</link><description>Recent content on Marcos Rezende</description><generator>Hugo -- gohugo.io</generator><language>pt-br</language><lastBuildDate>Sat, 25 Sep 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://rehzende.dev/index.xml" rel="self" type="application/rss+xml"/><item><title>1 - Drops: Pipelines — YML</title><link>https://rehzende.dev/p/1-drops-pipelines-yml/</link><pubDate>Sat, 25 Sep 2021 00:00:00 +0000</pubDate><guid>https://rehzende.dev/p/1-drops-pipelines-yml/</guid><description>&lt;img src="https://rehzende.dev/p/1-drops-pipelines-yml/yml.png" alt="Featured image of post 1 - Drops: Pipelines — YML" />&lt;p>Para continuar nossa jornada de Azure Pipelines, precisamos entender o mínimo de YML. A maioria das ferramentas de pipelines utiliza o YML como padrão de serialização (codificação de dados). Por isso, entender o mínimo já nos ajuda evitar alguns erros no momento de executar qualquer pipeline.&lt;/p>
 &lt;p>Vou abordar de maneira simples o YML para facilitar o entendimento de quem está começando. Podemos salvar o arquivo em duas extensões: .yml ou .yaml as duas formas são reconhecidas; a boa prática é sempre usar em lowcase.&lt;/p>
 &lt;p>&lt;strong>Dica:&lt;/strong> espaço em YML é muito importante, por isso sempre use um PAR de espaços e não Tab; quando precisar comentar use o #(hash).&lt;/p>
-&lt;pre>&lt;code># seu comentário
-&lt;/code>&lt;/pre>&lt;p>Para iniciar um documento temos uma opção que não é obrigatória, porém útil quando estamos trabalhando com mais de uma definição por arquivo. Iniciamos o arquivo com 3 hifens e finalizamos com 3 pontos.`&lt;/p>
-&lt;pre>&lt;code>---
-#só um comentário
-...
-&lt;/code>&lt;/pre>&lt;p>Mapeamento permite listar chaves com valores. Isso é útil nos casos em que você está atribuindo um nome ou uma propriedade a um elemento específico.&lt;/p>
-&lt;pre>&lt;code>cerveja: tecnologia
-copo: campo
-&lt;/code>&lt;/pre>&lt;p>Às vezes precisamos trabalhar com listas e dicionários. Abaixo deixo dois exemplos do que eles são:
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-yml" data-lang="yml">&lt;span class="c"># seu comentário&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Para iniciar um documento temos uma opção que não é obrigatória, porém útil quando estamos trabalhando com mais de uma definição por arquivo. Iniciamos o arquivo com 3 hifens e finalizamos com 3 pontos.`&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-yml" data-lang="yml">&lt;span class="nn">---&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="c">#só um comentário&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nn">...&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Mapeamento permite listar chaves com valores. Isso é útil nos casos em que você está atribuindo um nome ou uma propriedade a um elemento específico.&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-yml" data-lang="yml">&lt;span class="nt">cerveja&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">tecnologia&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">copo&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">campo&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Às vezes precisamos trabalhar com listas e dicionários. Abaixo deixo dois exemplos do que eles são:
 Listas são coleções de itens que você define usando hífen:&lt;/p>
-&lt;pre>&lt;code>---
----
-- apenas comece
-- entenda os conceitos
-- estude no seu tempo---
-ferramentas:
-- docker
-- kubernetes
-- terraform
-- ansible
-&lt;/code>&lt;/pre>&lt;p>Dicionários são coleções de mapeamentos de chave: valor. No exemplo abaixo, em que eu estou mapeando os dados de um pagador, tenho diversos dados, como: ‘pessoa’, ‘família’ e ‘endereço’. Porém, dentro de ‘endereço’ possuo outros dados. Isso tudo é um dicionário.&lt;/p>
-&lt;pre>&lt;code>pagador: &amp;amp;id001
-pessoa: Chris
-familia: Dumars
-endereco:
-rua: |
-458 Walkman Dr.
-Suite #292
-cidade: Royal Oak
-estado: MI
-cep: 48046
-&lt;/code>&lt;/pre>&lt;p>Existem casos que repetimos os mesmos dados em diversas linhas de nosso código. Para evitar que o tamanho do documento fique muito grande, podemos repetir esse código trabalhando com âncoras. Basta usar ‘E’ Comercial &amp;amp;+String para criar uma âncora e usar asterisco *+String para criar a referência da âncora. Veja abaixo:&lt;/p>
-&lt;pre>&lt;code>copodecerveja: &amp;amp;tecnologia
-- dados_disponiveis: 2.5M
-- usuarios_conectados: 39k
-- linhas_de_codigos: &amp;quot;+10.216.248&amp;quot;
-- squads: &amp;quot;+50&amp;quot;
-- produtos:&amp;quot;+70&amp;quot;
-mesadobar: *tecnologia # Aqui estamos dizendo que a mesadobar tem os mesmos dados do copodecerveja
-&lt;/code>&lt;/pre>&lt;p>Podemos também usar multilinhas para atribuir nossos valores, usando: |(pipe) um bloco literal que irá inserir quebras de linhas em seu texto. E &amp;gt;(maior) bloco dobrado que irá substituir todas as quebras de linhas por espaços simples.&lt;/p>
-&lt;pre>&lt;code>---
-literal: |
-do código ao campo
-do campo ao código
----
-dobrado: &amp;gt;
-do código ao campo
-do campo à mesa do bar
-...
-# Se convertermos esses dois exemplos em JSON, podemos ver melhor o que quis dizer.
-{
-&amp;quot;literal&amp;quot;: &amp;quot;do código ao campo\ndo campo ao código\n&amp;quot;,
-&amp;quot;dobrado&amp;quot;: &amp;quot;do código ao campo do campo à mesa do bar\n&amp;quot;
-}
-Vou deixar um exemplo de uma ordem de venda que contém dados da operação.
----
-&lt;/code>&lt;/pre>&lt;pre>&lt;code>nota_fiscal: 34843
-data: 2001-01-23
-pagador: &amp;amp;id001
-pessoa: Chris
-familia: Dumars
-endereco:
-rua: |
-458 Walkman Dr.
-Suite #292
-cidade: Royal Oak
-estado: MI
-cep: 48046
-envio: *id001
-produto:
-- id_produto: BL394D
-quantidade: 4
-descricao : Basketball
-preco: 450.00
-- id_produto: BL4438H
-quantidade : 1
-descricao: Super Hoop
-preco: 2392.00
-taxa : 251.42
-total: 4443.52
-...
-&lt;/code>&lt;/pre>&lt;p>No dia-dia, o yml salva nossas vidas por ser simples e poderoso ao mesmo tempo. Quando se trata de pipelines, o yml ajuda a reduzir a curva de aprendizagem de qualquer ferramenta por ser fácil de ler e entender.&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-yml" data-lang="yml">&lt;span class="nn">---&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nn">---&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>- &lt;span class="w"> &lt;/span>&lt;span class="l">apenas comece &lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>- &lt;span class="w"> &lt;/span>&lt;span class="l">entenda os conceitos &lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>- &lt;span class="w"> &lt;/span>&lt;span class="l">estude no seu tempo--- &lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">ferramentas&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="l">docker &lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="l">kubernetes &lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="l">terraform &lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="l">ansible&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Dicionários são coleções de mapeamentos de chave: valor. No exemplo abaixo, em que eu estou mapeando os dados de um pagador, tenho diversos dados, como: ‘pessoa’, ‘família’ e ‘endereço’. Porém, dentro de ‘endereço’ possuo outros dados. Isso tudo é um dicionário.&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-yml" data-lang="yml">&lt;span class="nt">pagador&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="cp">&amp;amp;id001&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">pessoa&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Chris&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">familia&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Dumars&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">endereco&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">rua&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">|&lt;/span>&lt;span class="sd">
+&lt;/span>&lt;span class="sd"> 458 Walkman Dr.
+&lt;/span>&lt;span class="sd"> Suite #292&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">cidade&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Royal Oak&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">estado&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">MI&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">cep&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">48046&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Existem casos que repetimos os mesmos dados em diversas linhas de nosso código. Para evitar que o tamanho do documento fique muito grande, podemos repetir esse código trabalhando com âncoras. Basta usar ‘E’ Comercial &amp;amp;+String para criar uma âncora e usar asterisco *+String para criar a referência da âncora. Veja abaixo:&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-yml" data-lang="yml">&lt;span class="nt">copodecerveja&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="cp">&amp;amp;tecnologia&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">dados_disponiveis&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">2.&lt;/span>&lt;span class="l">5M&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">usuarios_conectados&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">39k&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">linhas_de_codigos&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;+10.216.248&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">squads&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;+50&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="l">produtos:&amp;#34;+70&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">mesadobar&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="cp">*tecnologia&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># Aqui estamos dizendo que a mesadobar tem os mesmos dados do copodecerveja&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Podemos também usar multilinhas para atribuir nossos valores, usando: |(pipe) um bloco literal que irá inserir quebras de linhas em seu texto. E &amp;gt;(maior) bloco dobrado que irá substituir todas as quebras de linhas por espaços simples.&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-yml" data-lang="yml">&lt;span class="nn">---&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">literal&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">|&lt;/span>&lt;span class="sd">
+&lt;/span>&lt;span class="sd"> do código ao campo
+&lt;/span>&lt;span class="sd"> do campo ao código&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nn">---&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">dobrado&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">&amp;gt;&lt;/span>&lt;span class="sd">
+&lt;/span>&lt;span class="sd"> do código ao campo
+&lt;/span>&lt;span class="sd"> do campo à mesa do bar&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nn">...&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Se convertermos esses dois exemplos em JSON, podemos ver melhor o que quis dizer.&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-json" data-lang="json">&lt;span class="p">{&lt;/span>
+&lt;span class="nt">&amp;#34;literal&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;do código ao campo\ndo campo ao código\n&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="nt">&amp;#34;dobrado&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;do código ao campo do campo à mesa do bar\n&amp;#34;&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Vou deixar um exemplo de uma ordem de venda que contém dados da operação.&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-yml" data-lang="yml">&lt;span class="nt">nota_fiscal&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">34843&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">data&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="ld">2001-01-23&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">pagador&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="cp">&amp;amp;id001&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">pessoa&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Chris&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">familia&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Dumars&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">endereco&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">rua&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">|&lt;/span>&lt;span class="sd">
+&lt;/span>&lt;span class="sd"> 458 Walkman Dr.
+&lt;/span>&lt;span class="sd"> Suite #292&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">cidade&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Royal Oak&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">estado&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">MI&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">cep&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">48046&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">envio&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="cp">*id001&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">produto&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>- &lt;span class="nt">id_produto&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">BL394D&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">quantidade&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">4&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">descricao &lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Basketball&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">preco&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">450.00&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>- &lt;span class="nt">id_produto&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">BL4438H&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">quantidade &lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">1&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">descricao&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Super Hoop&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">preco&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">2392.00&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">taxa &lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">251.42&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">total&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">4443.52&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nn">...&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>No dia-dia, o yml salva nossas vidas por ser simples e poderoso ao mesmo tempo. Quando se trata de pipelines, o yml ajuda a reduzir a curva de aprendizagem de qualquer ferramenta por ser fácil de ler e entender.&lt;/p>
 &lt;p>Espero que tenha te ajudado, nos vemos em breve na sequência da nossa jornada em Azure Pipelines. Valeu!&lt;/p></description></item><item><title>2 - Drops: Azure Pipelines - Estrutura</title><link>https://rehzende.dev/p/2-drops-azure-pipelines-estrutura/</link><pubDate>Sat, 25 Sep 2021 00:00:00 +0000</pubDate><guid>https://rehzende.dev/p/2-drops-azure-pipelines-estrutura/</guid><description>&lt;img src="https://rehzende.dev/p/2-drops-azure-pipelines-estrutura/pipelines.png" alt="Featured image of post 2 - Drops: Azure Pipelines - Estrutura" />&lt;p>Posso dizer, sem dúvidas, que o mais assustador para alguém que está começando no universo de Devops e se vê diante de uma pipeline complexa, são os termos STAGE, STEP e JOBS. Até que consiga entender qual é a hierarquia deles, a pessoa pode ficar bem perdida.
 Para ficar mais fácil de entender, a documentação da Microsoft traz vários exemplos e um deles vou reproduzir abaixo.
 hierarquia-pipeline.yml&lt;/p>
