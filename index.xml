@@ -84,39 +84,38 @@ total: 4443.52
 ...
 &lt;/code>&lt;/pre>&lt;p>No dia-dia, o yml salva nossas vidas por ser simples e poderoso ao mesmo tempo. Quando se trata de pipelines, o yml ajuda a reduzir a curva de aprendizagem de qualquer ferramenta por ser fácil de ler e entender.&lt;/p>
 &lt;p>Espero que tenha te ajudado, nos vemos em breve na sequência da nossa jornada em Azure Pipelines. Valeu!&lt;/p></description></item><item><title>2 - Drops: Azure Pipelines - Estrutura</title><link>https://rehzende.dev/p/2-drops-azure-pipelines-estrutura/</link><pubDate>Sat, 25 Sep 2021 00:00:00 +0000</pubDate><guid>https://rehzende.dev/p/2-drops-azure-pipelines-estrutura/</guid><description>&lt;img src="https://rehzende.dev/p/2-drops-azure-pipelines-estrutura/pipelines.png" alt="Featured image of post 2 - Drops: Azure Pipelines - Estrutura" />&lt;p>Posso dizer, sem dúvidas, que o mais assustador para alguém que está começando no universo de Devops e se vê diante de uma pipeline complexa, são os termos STAGE, STEP e JOBS. Até que consiga entender qual é a hierarquia deles, a pessoa pode ficar bem perdida.
-Para ficar mais fácil de entender, a documentação da Microsoft traz vários exemplos e um deles vou reproduzir abaixo.&lt;/p>
-&lt;pre>&lt;code>hierarquia-pipeline.yml
-* STAGE A
-* JOB 1
-* STEP 1.1
-* STEP 1.2
-* JOB 2
-* STEP 2.1
-* STEP 2.2
-* STAGE B
-* ...
-exemplo.pipeline.yml
-stages:
-- stage: Build
-jobs:
-- job: BuildJob
-steps:
-- script: echo Building!
-- stage: Test
-jobs:
-- job: TestOnWindows
-steps:
-- script: echo Testing on Windows!
-- job: TestOnLinux
-steps:
-- script: echo Testing on Linux!
-- stage: Deploy
-jobs:
-- job: Deploy
-steps:
-- script: echo Deploying the code!
-&lt;/code>&lt;/pre>
-&lt;ul>
+Para ficar mais fácil de entender, a documentação da Microsoft traz vários exemplos e um deles vou reproduzir abaixo.
+hierarquia-pipeline.yml&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-yml" data-lang="yml">&lt;span class="w"> &lt;/span>&lt;span class="nt">STAGE A&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">JOB 1&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">STEP 1.1&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">STEP 1.2&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">JOB 2&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">STEP 2.1&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">STEP 2.2&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">STAGE B&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">...&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>exemplo.pipeline.yml&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-yml" data-lang="yml">&lt;span class="w"> &lt;/span>&lt;span class="nt">stages&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">stage&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Build &lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">jobs&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">job&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">BuildJob &lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">steps&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">script&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">echo Building! &lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">stage&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Test &lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">jobs&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">job&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">TestOnWindows &lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">steps&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">script&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">echo Testing on Windows! &lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">job&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">TestOnLinux &lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">steps&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">script&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">echo Testing on Linux! &lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">stage&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Deploy &lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">jobs&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">job&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Deploy &lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">steps&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">script&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">echo Deploying the code!&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
 &lt;li>STAGE é a coleção principal que contém todos os Jobs que devem ser executados. Por padrão, os stages nas pipelines são executados na sequência se o estágio anterior terminar com sucesso; caso contrário, a pipeline falhará ou os stages podem ser condicionadas a rodarem com dependência em um determinado estágio usando o dependeOn.&lt;/li>
 &lt;li>JOB é uma coleção de etapas que, em uma pipeline, podemos usar para executar diferentes tipos de testes, builds ou o que for preciso em máquinas ou versões de sistemas operacionais diferentes. Isso porque, pra cada JOB você pode definir um AGENT POOL. Com o Agent Pool você pode escolher o sistema operacional em que a pipeline irá rodar determinado Job, podendo ser em Vms ou até mesmo Containers.&lt;/li>
 &lt;li>STEPS são as sequências de operações dentro de um JOB, e é aqui que quase tudo funciona, pois podemos adicionar TASK, BASH, POWERSHELL, SCRIPT e muito mais.&lt;/li>
