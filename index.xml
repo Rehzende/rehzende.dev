@@ -338,4 +338,4 @@ curl https://gist.githubusercontent.com/Rehzende/00e820a7af41ac67cf67bd73d07f333
 &lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">git commit add main.yml
 git commit -m &lt;span class="s2">&amp;#34;adicionando a pipeline&amp;#34;&lt;/span>
 git push
-&lt;/code>&lt;/pre>&lt;/div></description></item></channel></rss>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Teste&lt;/p></description></item></channel></rss>
