@@ -138,4 +138,204 @@ loading="lazy"
 alt="Criando um Repo">
 &lt;/a>
 &lt;figcaption>Criando um Repo&lt;/figcaption>
-&lt;/figure>&lt;/p></description></item></channel></rss>
+&lt;/figure>&lt;/p></description></item><item><title>Usando o Github Actions para atualizar o Github Pages</title><link>https://rehzende.dev/p/usando-o-github-actions-para-atualizar-o-github-pages/</link><pubDate>Sat, 25 Sep 2021 00:00:00 +0000</pubDate><guid>https://rehzende.dev/p/usando-o-github-actions-para-atualizar-o-github-pages/</guid><description>&lt;img src="https://rehzende.dev/p/usando-o-github-actions-para-atualizar-o-github-pages/hugo.png" alt="Featured image of post Usando o Github Actions para atualizar o Github Pages" />&lt;p>Já pensou em ter um blog pessoal, para postar os seus artigos, postar informações sobre você e até criar um portifolio?
+O Tiago Krebes ensina a você como criar esse blog pessoal, usando o Github Pages e o HUGO. Veja o artigo dele aqui &lt;a class="link" href="https://tiagokrebs.com/post/github-page/" target="_blank" rel="noopener"
+>https://tiagokrebs.com/post/github-page/&lt;/a>..&lt;/p>
+&lt;p>No artigo dele tem um script para deploy de sua aplicação, mas já pensou em fazer isso de modo automatico apenas comitando o seu codigo em um repositorio?&lt;/p>
+&lt;p>Vou te ensinar a criar essa pipeline e configurar o github para isso.&lt;/p>
+&lt;h2 id="criando-as-chaves-publica-e-privada-para-o-deploy">Criando as chaves publica e privada para o deploy&lt;/h2>
+&lt;p>Vamos precisar de uma chave ssh publica e uma privada para permitir que o github actions tenha permissão para realizar o deploy de seu site.&lt;/p>
+&lt;p>Para gerar uma é muito facil, siga os passos abaixo:&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">ssh-keygen -t rsa -b &lt;span class="m">4096&lt;/span> -C &lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="k">$(&lt;/span>git config user.email&lt;span class="k">)&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span> -f gh-pages -N &lt;span class="s2">&amp;#34;&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Você terá uma saida identica a essa abaixo:&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-txt" data-lang="txt">rehzende@  /home/rehzende/Estudos/hugo/ssh-key &amp;gt; ssh-keygen -t rsa -b 4096 -C &amp;#34;$(git config user.email)&amp;#34; -f github-pages -N &amp;#34;&amp;#34;
+Generating public/private rsa key pair.
+Your identification has been saved in github-pages
+Your public key has been saved in github-pages.pub
+The key fingerprint is:
+SHA256:CBE9WA6ZKZ0p240smHzqr9MsKsHFMnf7bKXSIHWAPmo rehzende@hotmail.com
+The key&amp;#39;s randomart image is:
++---[RSA 4096]----+
+| .=@. |
+| o.O=o |
+|.oo*.oo. |
+|o+oB++.o |
+|. O.+ + S |
+|.E . o . |
+|o.o . = o |
+|.+ o . * |
+|+.=. o |
++----[SHA256]-----+
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Execute: &lt;strong>cat github-pages&lt;/strong> e &lt;strong>cat github-pages.pub&lt;/strong> para ver os conteudos dos arquivos gerados.&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="c1"># Conteudo da chave privada, nunca divulgue essa chave.&lt;/span>
+rehzende@  /home/rehzende/Estudos/hugo/ssh-key &amp;gt; cat github-pages
+-----BEGIN OPENSSH PRIVATE KEY-----
+b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAACFwAAAAdzc2gtcn
+NhAAAAAwEAAQAAAgEAsaUitvcoPUjYnJPUw55Wk/ApEpt5pyYFa+wkAyqklCgX+hDI4OAl
+k9EyESK0th5LGJ+Ch1xsfsdfsdfsdfsdfdssdfDfEYO4h10Nhhq2wK1KrWBlvj9iqmzkhl
+vwYhMRxjczbm77qIFg8sJVk8Q+hVYt4HkqIwLmFpnRd2Oz2m1ROXKzM+qOwQdUdQd7zUs6
+8Py7xcKykefaxGrFv0ILnum7oE1hTGgjZPUBhAaJPcEFuBxN0Amg4oKZcHKXJIi8WSWCps
+........................................................
+C25E/dWNWtwZLEr1VTb4R/x5+GnBpkXmbgTj4ZO0oECsuHLHFjzTlBhCqZ1V9S6VbV8Luu
+yaxfmvSHWQ1IPwTtNOpVnjNkcAVlwmBQlrlO06nhvePLs0tLNXr42GqsFI+wTjD+3W8hPI
+rEAupGdFiz+tkLSwAAAQEA0rW7fyUpGqPWmxIXiFy5zjBGphNyBocLMaEB5XZe/I+Dwk3Y
+CYXFodxHq2a9NJ5Kx+CGxIMsdfsdfsdfsdfsdMuiOVm/sdfsddrt/pRZiPfPZOK9OK9tFD
+6vlVIslozfnl+crK8PzvPiJaGdrsbqrsdfsdfOj7TLIY4gQcXpRc93G2LAn3RYFRvdz2iP
+8rQ96RL5603+Tp42U4/cxECprZuSsFMYeFQnR42Xfg2rwzhgE+J1rroidUx6jnLn1jXAlE
+L4EYNuUaP+WzUQlNfNmgG9vOVI5k1F0sz8ZD24B/lyCnWsZPOcFhnI/VqYnYE4HOfavf+b
+VmFnhWPXWm9xiwAAABRyZWh6ZW5kZUBob3RtYWlsLmNvbQECAwQF
+-----END OPENSSH PRIVATE KEY-----
+&lt;span class="c1"># Conteudo da chave publica&lt;/span>
+rehzende@  /home/rehzende/Estudos/hugo/ssh-key &amp;gt; cat github-pages.pub
+ssh-rsa AAAAB3NzaC1asdfwfwefwefwefqwefewqfwe..............gfjfhgjhfjhgjfhgsdf7qA6QuvsRLFABNP7ENsMspE
+gza64CmgYBYP8zWuZ8llupR0I2jsK5mtOG/4q0SZXCrH76eVKeEA+b50G3AuSgtYWmUA1Be6KdOu7gjFgnQsJP8ZBoTf3agrnRD4
+LQ9PtvndVtE+8/ZzqMTq2exkkDAv4H4Tcmk1XLbS452mzj9O5Ov1scM6G7t8i0krsV88sHWgyqb4zATvsyvWLcGQjkCH66nu26fg
+dgfhgfhRxupxaj0qtH/KyqERVo8uQ&lt;span class="o">==&lt;/span> rehzende@hotmail.com
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Vamos cadastrar essas chaves nos repositorios onde estão nossos conteudos.
+No meu caso eu tenho essa estrutura de repositorios:&lt;/p>
+&lt;p>rehzende.dev &amp;gt; Conteudo estático.
+hugo-blog &amp;gt; o código fonte do meu blog.&lt;/p>
+&lt;p>O deploy vai acontercer do repositorio hugo-blog para o rehzende.dev, para isso preciso adicionar uma chave de deploy no repósitorio rehzende.dev e uma chave secreta no hugo-blog.&lt;/p>
+&lt;h2 id="criando-a-chave-de-deploy">Criando a chave de Deploy&lt;/h2>
+&lt;p>No github, acesse: &amp;lsquo;&lt;a href="https://github.com/%7Bseu_user%7D/%7Bseu_repo_destino%7D/settings/keys'">https://github.com/{seu_user}/{seu_repo_destino}/settings/keys'&lt;/a>.&lt;/p>
+&lt;p>&lt;figure
+class="gallery-image"
+style="
+flex-grow: 197;
+flex-basis: 474px"
+>
+&lt;a href="https://rehzende.dev/p/usando-o-github-actions-para-atualizar-o-github-pages/deploykey.png" data-size="1510x764">
+&lt;img src="https://rehzende.dev/p/usando-o-github-actions-para-atualizar-o-github-pages/deploykey.png"
+width="1510"
+height="764"
+srcset="https://rehzende.dev/p/usando-o-github-actions-para-atualizar-o-github-pages/deploykey_hu33607a255cef214c811af00c6ea0817b_72483_480x0_resize_box_2.png 480w, https://rehzende.dev/p/usando-o-github-actions-para-atualizar-o-github-pages/deploykey_hu33607a255cef214c811af00c6ea0817b_72483_1024x0_resize_box_2.png 1024w"
+loading="lazy"
+alt="Settings Deploy Keys">
+&lt;/a>
+&lt;figcaption>Settings Deploy Keys&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;p>Adicione o conteudo de &lt;strong>github-pages.pub&lt;/strong> conforme as imagens abaixo:&lt;/p>
+&lt;p>&lt;figure
+class="gallery-image"
+style="
+flex-grow: 654;
+flex-basis: 1571px"
+>
+&lt;a href="https://rehzende.dev/p/usando-o-github-actions-para-atualizar-o-github-pages/adddeploykey1.png" data-size="1840x281">
+&lt;img src="https://rehzende.dev/p/usando-o-github-actions-para-atualizar-o-github-pages/adddeploykey1.png"
+width="1840"
+height="281"
+srcset="https://rehzende.dev/p/usando-o-github-actions-para-atualizar-o-github-pages/adddeploykey1_hubbfe3b8fda4fb2c4b1bc0addcae571ee_29834_480x0_resize_box_2.png 480w, https://rehzende.dev/p/usando-o-github-actions-para-atualizar-o-github-pages/adddeploykey1_hubbfe3b8fda4fb2c4b1bc0addcae571ee_29834_1024x0_resize_box_2.png 1024w"
+loading="lazy"
+alt="Add Deploy keys">
+&lt;/a>
+&lt;figcaption>Add Deploy keys&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;p>&lt;figure
+class="gallery-image"
+style="
+flex-grow: 182;
+flex-basis: 438px"
+>
+&lt;a href="https://rehzende.dev/p/usando-o-github-actions-para-atualizar-o-github-pages/adddeploykey2.png" data-size="1397x764">
+&lt;img src="https://rehzende.dev/p/usando-o-github-actions-para-atualizar-o-github-pages/adddeploykey2.png"
+width="1397"
+height="764"
+srcset="https://rehzende.dev/p/usando-o-github-actions-para-atualizar-o-github-pages/adddeploykey2_huc4f37e8fe657a4c7151783e6d761985e_64755_480x0_resize_box_2.png 480w, https://rehzende.dev/p/usando-o-github-actions-para-atualizar-o-github-pages/adddeploykey2_huc4f37e8fe657a4c7151783e6d761985e_64755_1024x0_resize_box_2.png 1024w"
+loading="lazy"
+alt="Add Deploy keys">
+&lt;/a>
+&lt;figcaption>Add Deploy keys&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;p>Você terá esse resultado:&lt;/p>
+&lt;p>&lt;figure
+class="gallery-image"
+style="
+flex-grow: 734;
+flex-basis: 1763px"
+>
+&lt;a href="https://rehzende.dev/p/usando-o-github-actions-para-atualizar-o-github-pages/listkeys.png" data-size="1352x184">
+&lt;img src="https://rehzende.dev/p/usando-o-github-actions-para-atualizar-o-github-pages/listkeys.png"
+width="1352"
+height="184"
+srcset="https://rehzende.dev/p/usando-o-github-actions-para-atualizar-o-github-pages/listkeys_hu0fb5ef56f4e009c14b942e6ca68302ef_16906_480x0_resize_box_2.png 480w, https://rehzende.dev/p/usando-o-github-actions-para-atualizar-o-github-pages/listkeys_hu0fb5ef56f4e009c14b942e6ca68302ef_16906_1024x0_resize_box_2.png 1024w"
+loading="lazy"
+alt="List Deploy keys">
+&lt;/a>
+&lt;figcaption>List Deploy keys&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;h2 id="criando-a-variavel-secreta">Criando a variavel secreta&lt;/h2>
+&lt;p>No github, acesse: &amp;lsquo;&lt;a href="https://github.com/%7Bseu_user%7D/%7Bseu_repo_origem%7D/settings/secrets/actions'">https://github.com/{seu_user}/{seu_repo_origem}/settings/secrets/actions'&lt;/a>.&lt;/p>
+&lt;p>&lt;figure
+class="gallery-image"
+style="
+flex-grow: 234;
+flex-basis: 562px"
+>
+&lt;a href="https://rehzende.dev/p/usando-o-github-actions-para-atualizar-o-github-pages/settings_secret.png" data-size="1784x761">
+&lt;img src="https://rehzende.dev/p/usando-o-github-actions-para-atualizar-o-github-pages/settings_secret.png"
+width="1784"
+height="761"
+srcset="https://rehzende.dev/p/usando-o-github-actions-para-atualizar-o-github-pages/settings_secret_hu357d0ef17cad42abacdf8dd80278e504_52999_480x0_resize_box_2.png 480w, https://rehzende.dev/p/usando-o-github-actions-para-atualizar-o-github-pages/settings_secret_hu357d0ef17cad42abacdf8dd80278e504_52999_1024x0_resize_box_2.png 1024w"
+loading="lazy"
+alt="Secret">
+&lt;/a>
+&lt;figcaption>Secret&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;p>Cole o conteudo do arquivo &lt;strong>github-pages&lt;/strong>&lt;/p>
+&lt;p>&lt;figure
+class="gallery-image"
+style="
+flex-grow: 203;
+flex-basis: 488px"
+>
+&lt;a href="https://rehzende.dev/p/usando-o-github-actions-para-atualizar-o-github-pages/ssh_secret.png" data-size="1191x585">
+&lt;img src="https://rehzende.dev/p/usando-o-github-actions-para-atualizar-o-github-pages/ssh_secret.png"
+width="1191"
+height="585"
+srcset="https://rehzende.dev/p/usando-o-github-actions-para-atualizar-o-github-pages/ssh_secret_hu7ac587071e9520a3d475e6e301c5f791_47255_480x0_resize_box_2.png 480w, https://rehzende.dev/p/usando-o-github-actions-para-atualizar-o-github-pages/ssh_secret_hu7ac587071e9520a3d475e6e301c5f791_47255_1024x0_resize_box_2.png 1024w"
+loading="lazy"
+alt="Secret">
+&lt;/a>
+&lt;figcaption>Secret&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;p>você terá o resultado:&lt;/p>
+&lt;p>&lt;figure
+class="gallery-image"
+style="
+flex-grow: 1396;
+flex-basis: 3351px"
+>
+&lt;a href="https://rehzende.dev/p/usando-o-github-actions-para-atualizar-o-github-pages/ssh_secret_list.png" data-size="1145x82">
+&lt;img src="https://rehzende.dev/p/usando-o-github-actions-para-atualizar-o-github-pages/ssh_secret_list.png"
+width="1145"
+height="82"
+srcset="https://rehzende.dev/p/usando-o-github-actions-para-atualizar-o-github-pages/ssh_secret_list_hu8db295f46adf6a057d4c5892735405f7_4491_480x0_resize_box_2.png 480w, https://rehzende.dev/p/usando-o-github-actions-para-atualizar-o-github-pages/ssh_secret_list_hu8db295f46adf6a057d4c5892735405f7_4491_1024x0_resize_box_2.png 1024w"
+loading="lazy"
+alt="Secret">
+&lt;/a>
+&lt;figcaption>Secret&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;h2 id="criando-a-pipeline">Criando a pipeline&lt;/h2>
+&lt;p>No seu repositório onde contém o codigo fonte do HUGO crie a estrutrura de pastas abaixo:&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="nb">cd&lt;/span> seu-repo-hugo/
+&lt;span class="c1"># criando estrutura de pasta do github actions&lt;/span>
+mkdir -p ./.github/workflows
+&lt;span class="nb">cd&lt;/span> ./.github/workflows
+&lt;span class="c1"># Baixando o exemplo de pipeline&lt;/span>
+curl https://gist.githubusercontent.com/Rehzende/00e820a7af41ac67cf67bd73d07f3334/raw/dd84a0c4a8d955ee777b598f19f7e591fed4cd2c/gh-pages-action.yml -o main.yml
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Altere as linhas abaixo do seu arquivo &lt;strong>main.yml&lt;/strong>&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-yml" data-lang="yml">&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Deploy&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">uses&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">peaceiris/actions-gh-pages@v3&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">if&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">${{ github.ref == &amp;#39;refs/heads/main&amp;#39; }}&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">with&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">deploy_key&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">${{ secrets.DEPLOY_KEY }}&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">external_repository&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">username/repo-destino&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># mude aqui&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">publish_branch: main # default&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">gh-pages&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">publish_dir&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">./public&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># cname: example.com - use caso tenha dominio personalizado%&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Commite os arquivos para a sua branch main&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">git commit add main.yml
+git commit -m &lt;span class="s2">&amp;#34;adicionando a pipeline&amp;#34;&lt;/span>
+git push
+&lt;/code>&lt;/pre>&lt;/div></description></item></channel></rss>
